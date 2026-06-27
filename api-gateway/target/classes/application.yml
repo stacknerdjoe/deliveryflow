@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: order-service
+          uri: http://order-service:8081
+          predicates:
+            - Path=/api/orders/**
+        - id: driver-service
+          uri: http://driver-service:8082
+          predicates:
+            - Path=/api/drivers/**
+        - id: tracking-service
+          uri: http://tracking-service:8083
+          predicates:
+            - Path=/api/tracking/**
+        - id: notification-service
+          uri: http://notification-service:8084
+          predicates:
+            - Path=/api/notifications/**
+        - id: auth-service
+          uri: http://order-service:8081
+          predicates:
+            - Path=/api/auth/**
+
+jwt:
+  secret: deliveryflow-secret-key-for-jwt-signing-must-be-256-bits-long-xx

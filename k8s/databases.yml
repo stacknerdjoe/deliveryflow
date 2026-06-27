@@ -1,0 +1,134 @@
+# ─── Order DB ─────────────────────────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-db
+  template:
+    metadata:
+      labels:
+        app: order-db
+    spec:
+      containers:
+        - name: order-db
+          image: postgres:15-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: "orderdb"
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              value: "postgres"
+          volumeMounts:
+            - name: order-db-storage
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: order-db-storage
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-db
+spec:
+  selector:
+    app: order-db
+  ports:
+    - port: 5432
+      targetPort: 5432
+---
+# ─── Driver DB ────────────────────────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: driver-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: driver-db
+  template:
+    metadata:
+      labels:
+        app: driver-db
+    spec:
+      containers:
+        - name: driver-db
+          image: postgres:15-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: "driverdb"
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              value: "postgres"
+          volumeMounts:
+            - name: driver-db-storage
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: driver-db-storage
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: driver-db
+spec:
+  selector:
+    app: driver-db
+  ports:
+    - port: 5432
+      targetPort: 5432
+---
+# ─── Tracking DB ──────────────────────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tracking-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tracking-db
+  template:
+    metadata:
+      labels:
+        app: tracking-db
+    spec:
+      containers:
+        - name: tracking-db
+          image: postgres:15-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: "trackingdb"
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              value: "postgres"
+          volumeMounts:
+            - name: tracking-db-storage
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: tracking-db-storage
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tracking-db
+spec:
+  selector:
+    app: tracking-db
+  ports:
+    - port: 5432
+      targetPort: 5432

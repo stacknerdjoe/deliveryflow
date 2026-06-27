@@ -1,0 +1,6 @@
+com\deliveryflow\trackingservice\repository\TrackingRepository.class
+com\deliveryflow\trackingservice\config\RabbitMQConfig.class
+com\deliveryflow\trackingservice\TrackingServiceApplication.class
+com\deliveryflow\trackingservice\consumer\OrderEventConsumer.class
+com\deliveryflow\trackingservice\model\TrackingEvent.class
+com\deliveryflow\trackingservice\controller\TrackingController.class
