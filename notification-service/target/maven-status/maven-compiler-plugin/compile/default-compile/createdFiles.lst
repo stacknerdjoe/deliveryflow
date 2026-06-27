@@ -1,4 +1,0 @@
-com\deliveryflow\notificationservice\config\RabbitMQConfig.class
-com\deliveryflow\notificationservice\consumer\NotificationConsumer.class
-com\deliveryflow\notificationservice\controller\NotificationController.class
-com\deliveryflow\notificationservice\NotificationServiceApplication.class
