@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: driver-service
-          image: deliveryflow/driver-service:latest
+          image: onyenemerem/deliveryflow-driver-service:latest
           ports:
             - containerPort: 8082
           env:

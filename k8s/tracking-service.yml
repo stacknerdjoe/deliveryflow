@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: tracking-service
-          image: deliveryflow/tracking-service:latest
+          image: onyenemerem/deliveryflow-tracking-service:latest
           ports:
             - containerPort: 8083
           env:

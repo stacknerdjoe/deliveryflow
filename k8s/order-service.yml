@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: order-service
-          image: deliveryflow/order-service:latest
+          image: onyenemerem/deliveryflow-order-service:latest
           ports:
             - containerPort: 8081
           env:

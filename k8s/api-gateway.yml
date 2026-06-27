@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: deliveryflow/api-gateway:latest
+          image: onyenemerem/deliveryflow-api-gateway:latest
           ports:
             - containerPort: 8080
           env:
