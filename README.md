@@ -1,5 +1,7 @@
 # DeliveryFlow — Cloud-Native Logistics Platform
 
+> I built DeliveryFlow from the ground up as a production-style distributed system — designing the service boundaries, implementing event-driven communication between independently deployable microservices, solving real distributed systems challenges like competing consumers and JWT propagation across service boundaries, and orchestrating the entire platform with Docker and Kubernetes.
+
 A production-style microservices backend simulating a real-world logistics and delivery platform. Built to demonstrate distributed systems engineering concepts including event-driven architecture, API gateway routing, JWT authentication, and Kubernetes orchestration.
 
 ## Architecture Overview
@@ -48,12 +50,17 @@ A production-style microservices backend simulating a real-world logistics and d
 
 ## Key Concepts Demonstrated
 
-- **Microservices architecture** — 5 independently deployable services
-- **Event-driven communication** — Services communicate via RabbitMQ, not direct HTTP calls
-- **Database-per-service pattern** — Each service has its own isolated PostgreSQL instance
-- **API Gateway pattern** — Single entry point, JWT auth handled centrally
-- **Fault isolation** — A failure in notification-service does not affect order creation
-- **Containerisation** — Every service runs in its own Docker container
+- **Microservices architecture** — 5 independently deployable services, each with its own codebase and database
+- **Event-driven communication** — Services communicate asynchronously via RabbitMQ, not direct HTTP calls, reducing coupling
+- **Fan-out messaging pattern** — Each consumer service has its own dedicated queue bound to the same exchange, ensuring every service receives a full copy of every event independently
+- **Database-per-service pattern** — Each service owns its own isolated PostgreSQL instance; no service queries another service's database directly
+- **API Gateway pattern** — Single entry point handles JWT validation centrally and injects user context as headers (X-User-Id, X-User-Role) for downstream services
+- **JWT authentication** — Stateless auth using HS256 signed tokens; gateway validates on every request, public endpoints whitelisted
+- **Fault isolation** — A failure in notification-service does not affect order creation or tracking; services fail independently
+- **Containerisation** — Every service and dependency runs in its own Docker container; full stack starts with a single docker-compose up command
+- **Kubernetes orchestration** — Production-ready k8s manifests for all services with Deployment and Service resources
+- **Multi-stage Docker builds** — Build stage compiles the JAR, runtime stage uses lightweight JRE Alpine image to minimise container size
+- **Competing consumers problem solved** — Identified and fixed a distributed systems bug where shared queues caused round-robin message distribution between consumers
 
 ## Running Locally
 
